@@ -1,0 +1,270 @@
+/* ---------- Finance overview ---------- */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  position: relative;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+/* A soft tinted corner glow per stat card. */
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -50px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.14), transparent 70%);
+  pointer-events: none;
+}
+
+.stat-card__label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stat-card__value {
+  margin: 6px 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink-900);
+  overflow-wrap: anywhere;
+}
+
+.stat-card__note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.finance-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+  gap: 34px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .finance-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Chart (colors are the validated categorical slots 1-3) ---------- */
+
+.chart {
+  --chart-income: #4f46e5;
+  --chart-expense: #f2694f;
+  --chart-profit: #12b886;
+  --chart-grid: #eceef7;
+  --chart-baseline: #c6cbdd;
+}
+
+.chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.chart__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chart__swatch {
+  display: inline-block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.chart__swatch--income {
+  background: var(--chart-income);
+}
+
+.chart__swatch--expense {
+  background: var(--chart-expense);
+}
+
+/* Profit is a line, so its key is a short line with a dot. */
+.chart__swatch--profit {
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--chart-profit);
+}
+
+.chart__frame {
+  overflow-x: auto;
+}
+
+.chart__canvas {
+  position: relative;
+  min-width: 520px;
+}
+
+.chart__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: pan-y;
+}
+
+.chart__grid {
+  stroke: var(--chart-grid);
+  stroke-width: 1;
+}
+
+.chart__baseline {
+  stroke: var(--chart-baseline);
+  stroke-width: 1;
+}
+
+.chart__axis-label {
+  fill: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-body);
+}
+
+.chart__band {
+  fill: rgba(79, 70, 229, 0.06);
+}
+
+.chart__bar--income {
+  fill: var(--chart-income);
+}
+
+.chart__bar--expense {
+  fill: var(--chart-expense);
+}
+
+.chart__line {
+  fill: none;
+  stroke: var(--chart-profit);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* The 2px ring in the surface color keeps dots readable where they cross a bar. */
+.chart__dot {
+  fill: var(--chart-profit);
+  stroke: var(--surface);
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+.chart__hit {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.chart__tooltip {
+  position: absolute;
+  top: 8px;
+  z-index: 2;
+  min-width: 190px;
+  padding: 12px 14px;
+  font-size: 13px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  pointer-events: none;
+}
+
+.chart__tooltip-title {
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.chart__tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+.chart__tooltip-row strong {
+  margin-left: auto;
+  padding-left: 12px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.chart__table {
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+.chart__table summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--accent-strong);
+}
+
+.chart__table .table-wrap {
+  margin-top: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* ---------- Expense breakdown ---------- */
+
+.breakdown {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breakdown__top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  margin-bottom: 7px;
+  font-size: 14px;
+}
+
+.breakdown__track {
+  height: 10px;
+  border-radius: 999px;
+  background: #fdece6;
+  overflow: hidden;
+}
+
+.breakdown__bar {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f79b7a 0%, #f2694f 100%);
+}
